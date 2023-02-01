@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Booklist</title>
+	<meta http-equiv="Content-Type" content="text/html" charset=UTF-8/>
+</head>
+
+<body>
+	<h1>Books</h1>
+	<!-- table to actually show the students -->
+	<table>
+		<tbody>
+			<tr>
+				<td align="center"><b>Title</b></td>
+				<td align="center"><b>Author</b></td>
+				<td align="center"><b>ISBN</b></td>
+				<td align="center"><b>Year</b></td>
+			</tr>
+			<tr th:each = "book : ${books}">
+				<td align="center" th:text="${book.title}"></td>
+				<td align="center" th:text="${book.author}"></td>
+				<td align="center" th:text="${book.isbn}"></td>
+				<td align="center" th:text="${book.pubYear}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>

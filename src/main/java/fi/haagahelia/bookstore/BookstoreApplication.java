@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import fi.haagahelia.bookstore.domain.Book;
 import fi.haagahelia.bookstore.domain.BookRepository;
-
+ 
 @SpringBootApplication
 public class BookstoreApplication {
 
@@ -16,17 +16,21 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BookRepository repository) {
+	//bookstore tilalla oli demo tossa alla
+	public CommandLineRunner bookstore(BookRepository bookRepository) {
 		return (args) -> {
 			//your code here.. add demo data to db
 			
 			//creating demo data, obects to add to the dc
-			Book s1 = new Book("123456", "Fairytales from The Forest", "Millie Maven", 1995, 29);
-			Book s2 = new Book("987654", "Book About Things", "Ronald Weasel", 1999, 15);
+			//Book s1 = new Book("123456", "Fairytales from The Forest", "Millie Maven", 1995, 29);
+			//Book s2 = new Book("987654", "Book About Things", "Ronald Weasel", 1999, 15);
+			
+			bookRepository.save(new Book("123456", "Fairytales from The Forest", "Millie Maven", 1995, 29));
+			bookRepository.save(new Book("987654", "Book About Things", "Ronald Weasel", 1999, 15));
 			
 			//saving demo objects to the db
-			repository.save(s1);
-			repository.save(s2);
+			//bookRepository.save(s1);
+			//bookRepository.save(s2);
 		
 		};	 
 	}

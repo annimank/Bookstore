@@ -3,6 +3,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Book {
@@ -13,20 +15,28 @@ public class Book {
 	private String isbn;
 	private String title, author;
 	private int pubYear;
-	private float price;
+	private double price;
+	
+	@ManyToOne
+	@JoinColumn(name = "categoryid")
+	private Category category;
 	
 	public Book() {}
 	
-	public Book(String isbn, String title, String author, int pubYear, float price) {
+	
+	public Book(String isbn, String title, String author, int pubYear, double price, Category category) {
 		super();
 		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
 		this.pubYear = pubYear;
 		this.price = price;
+		this.category = category;
 	}
-	
-	
+
+
+
+
 	public long getId() {
 		return id;
 	}
@@ -37,7 +47,7 @@ public class Book {
 
 	public String getIsbn() {
 		return isbn;
-	}
+	} 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
@@ -59,11 +69,19 @@ public class Book {
 	public void setPubYear(int pubYear) {
 		this.pubYear = pubYear;
 	}
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 	

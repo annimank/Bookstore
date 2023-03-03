@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 	<title>Booklist</title>
@@ -8,8 +8,16 @@
 </head>
 
 <body>
-	<h1>Books</h1>
-	
+<div>
+	<div>
+		<div align="center"><h1>Books</h1></div>
+		<div align="center"><h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3></div>
+		<div align="center"><form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+			</form>
+		</div>
+	</div>
+	<br>	
 	<table class="table table-striped">
 		<tbody>
 			<tr>
@@ -18,7 +26,7 @@
 				<td align="center"><b>Category</b></td>
 				<td align="center"><b>ISBN</b></td>
 				<td align="center"><b>Year</b></td>
-				<td align="center" colspan="2"><b> </b></td>
+				<td sec:authorize="hasAuthority('ADMIN')" align="center" colspan="2"><b> </b></td>
 			</tr>
 			
 			<tr th:each = "book : ${books}">
@@ -27,11 +35,18 @@
 				<td align="center" th:text="${book.category.name}"></td>
 				<td align="center" th:text="${book.isbn}"></td>
 				<td align="center" th:text="${book.pubYear}"></td>
-				<td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
-				<td><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td>
+				<td align="center" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a></td>
+				<!-- <td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td> -->
+				<!-- <td><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td> -->
+				<td align="center" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td>
+			</tr>
+			<tr sec:authorize="hasAuthority('ADMIN')">
+				<td colspan="6"></td>
+				<td align="center" sec:authorize="hasAuthority('ADMIN')"><a href="/add" class="btn btn-success">Add a Book</a></td>
 			</tr>
 		</tbody>
 	</table>
-	<p><a href="/add" class="btn btn-success">Add a Book</a></p>
+	<!-- <p><a href="/add" class="btn btn-success">Add a Book</a></p> -->
+</div>
 </body>
 </html>

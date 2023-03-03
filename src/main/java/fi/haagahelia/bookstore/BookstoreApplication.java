@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import fi.haagahelia.bookstore.domain.AppUser;
+import fi.haagahelia.bookstore.domain.AppUserRepository;
 import fi.haagahelia.bookstore.domain.Book;
 import fi.haagahelia.bookstore.domain.BookRepository;
 import fi.haagahelia.bookstore.domain.Category;
@@ -19,7 +21,7 @@ public class BookstoreApplication {
 	
 	@Bean
 	//bookstore tilalla oli demo tossa alla
-	public CommandLineRunner bookstore(BookRepository bookRepository, CategoryRepository categoryRepository) {
+	public CommandLineRunner bookstore(BookRepository bookRepository, CategoryRepository categoryRepository, AppUserRepository appUserRepository) {
 		return (args) -> {
 			//your code here.. add demo data to db
 			
@@ -30,6 +32,14 @@ public class BookstoreApplication {
 			//saving demo objects to the db
 			//bookRepository.save(s1);
 			//bookRepository.save(s2);
+			appUserRepository.save(new AppUser("admin", "$2a$12$6ZMoGWJkzoKcg1qIriU2HOmFjEIOH/Sxzc4OityfQnpo.PwTWV9Lm", "ADMIN"));
+			appUserRepository.save(new AppUser("user", "$2a$12$YD68Waw0kCduoqtglyrFGusp4u73urkl6g8hicK5DeZEbX/YnifLq", "USER"));
+			
+			//AppUser user1 = new AppUser("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
+			//AppUser user2 = new AppUser("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");
+			//appUserRepository.save(user1);
+			//appUserRepository.save(user2);
+			
 			categoryRepository.save(new Category("Horror"));
 			categoryRepository.save(new Category("Biography"));
 			categoryRepository.save(new Category("Romance"));

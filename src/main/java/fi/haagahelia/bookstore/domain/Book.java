@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Book {
 	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -33,9 +34,6 @@ public class Book {
 		this.price = price;
 		this.category = category;
 	}
-
-
-
 
 	public long getId() {
 		return id;
